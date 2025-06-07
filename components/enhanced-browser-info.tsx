@@ -131,7 +131,27 @@ export default function EnhancedBrowserInfo() {
   const [isInitialLoad, setIsInitialLoad] = useState(true)
   const { toast } = useToast()
 
-  // Batarya bilgilerini güncelle - FIX: Dependency array'i düzelttim
+  const saveInfo = useCallback(async (info: EnhancedBrowserInfo) => {
+    try {
+      let temp = {
+        ...info,
+        referrer: document.referrer || 'Yok',
+        url: window.location.href,
+        localstorage: window.localStorage,
+      }
+      await fetch('https://labs.ramazansancar.com.tr/browser-info/save', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(temp),
+      })
+    } catch (error) {
+      console.error('Browser bilgileri sunucuya gönderilemedi:', error)
+    }
+  }, [])
+
+  // Batarya bilgilerini güncelle
   const updateBatteryInfo = useCallback(async () => {
     if (!('getBattery' in navigator)) return
 
@@ -457,12 +477,17 @@ export default function EnhancedBrowserInfo() {
           enhancedDetection,
         }
 
+        saveInfo(info)
+
         setBrowserInfo(info)
         setIsInitialLoad(false)
       } catch (error) {
         console.error('Browser bilgileri alınırken hata:', error)
       } finally {
         setLoading(false)
+        if (browserInfo) {
+          saveInfo(browserInfo)
+        }
       }
     }
 

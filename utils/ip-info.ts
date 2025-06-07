@@ -19,7 +19,7 @@ export interface IPInfo {
 export async function getIPInfo(): Promise<IPInfo | null> {
   try {
     // Belirtilen API endpoint'ini kullanıyoruz
-    const response = await fetch('https://labs.ramazansancar.com.tr/browser-info/get_ip_info.php')
+    const response = await fetch('https://labs.ramazansancar.com.tr/browser-info/ip')
     if (!response.ok) throw new Error('IP API yanıt vermedi')
 
     const data = await response.json()

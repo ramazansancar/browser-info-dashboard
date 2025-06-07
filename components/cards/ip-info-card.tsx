@@ -20,7 +20,8 @@ export function IPInfoCard({ ipInfo, cloudflareColoInfo, isLive = false }: IPInf
 
   // AS numarasını extract et (örn: "AS15169 Google LLC" -> "15169")
   const asNumber = ipInfo.as.match(/AS(\d+)/)?.[1]
-  const bgpHeUrl = asNumber ? `https://bgp.he.net/AS${asNumber}` : null
+  const bgpHeIp = ipInfo.ip ? `https://bgp.he.net/ip/${ipInfo.ip}` : null
+  const bgpHeAS = asNumber ? `https://bgp.he.net/AS${asNumber}` : null
 
   return (
     <Card className={isLive ? 'border-l-4 border-l-emerald-500' : ''}>
@@ -59,7 +60,20 @@ export function IPInfoCard({ ipInfo, cloudflareColoInfo, isLive = false }: IPInf
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <p className="text-sm font-medium text-gray-500">IP Adresi</p>
-            <p className="mt-1 font-mono text-sm">{ipInfo.ip}</p>
+            <div className="mt-1 flex items-center gap-2">
+              <p className="mt-1 font-mono text-sm">{ipInfo.ip}</p>
+              {bgpHeIp && (
+                <a
+                  href={bgpHeIp}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-1 flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline"
+                  title="BGP.HE.NET'te görüntüle"
+                >
+                  <ExternalLink className="h-3 w-3" />
+                </a>
+              )}
+            </div>
           </div>
           <div>
             <p className="text-sm font-medium text-gray-500">Network</p>
@@ -77,9 +91,9 @@ export function IPInfoCard({ ipInfo, cloudflareColoInfo, isLive = false }: IPInf
             <p className="text-sm font-medium text-gray-500">AS Numarası</p>
             <div className="mt-1 flex items-center gap-2">
               <p className="font-mono text-sm">{ipInfo.as}</p>
-              {bgpHeUrl && (
+              {bgpHeAS && (
                 <a
-                  href={bgpHeUrl}
+                  href={bgpHeAS}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-1 text-blue-600 hover:text-blue-800 hover:underline"
