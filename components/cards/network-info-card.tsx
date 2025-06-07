@@ -55,7 +55,7 @@ export function NetworkInfoCard({ onLine, connection, isLive = false }: NetworkI
                   className={
                     connection.saveData
                       ? 'bg-green-500 text-white hover:bg-green-600'
-                      : 'bg-green-500 text-white hover:bg-green-600'
+                      : 'bg-red-500 text-white hover:bg-red-600'
                   }
                 >
                   {connection.saveData ? 'Etkin' : 'Devre Dışı'}

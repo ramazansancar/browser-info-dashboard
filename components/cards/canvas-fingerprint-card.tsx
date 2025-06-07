@@ -37,7 +37,7 @@ export function CanvasFingerprintCard({
               WebGL Uzantıları
               <ExperimentalBadge className="h-3 w-3" />
             </p>
-            <p className="mt-1 max-h-20 overflow-y-auto text-xs">{webGLExtensions}</p>
+            <p className="mt-1 max-h-48 overflow-y-auto text-xs">{webGLExtensions}</p>
           </div>
         </div>
       </CardContent>

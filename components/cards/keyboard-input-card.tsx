@@ -33,7 +33,9 @@ export function KeyboardInputCard({ keyboardLayout, pdfViewerEnabled }: Keyboard
             <p className="text-sm font-medium text-gray-500">PDF Görüntüleyici</p>
             <Badge
               variant={pdfViewerEnabled ? 'default' : 'secondary'}
-              className={pdfViewerEnabled ? 'bg-green-500 hover:bg-green-600' : ''}
+              className={
+                pdfViewerEnabled ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'
+              }
             >
               {pdfViewerEnabled ? 'Etkin' : 'Devre Dışı'}
             </Badge>
